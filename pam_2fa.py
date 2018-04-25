@@ -23,7 +23,7 @@ def pam_sm_authenticate(pamh, flags, argv):
 
   try:
     user_status = requests.get('https://accounts.example.com/pam/new/%s on %s as %s' % (pamh.service, pamh.rhost, user)).json()
-    resp=pamh.conversation(pamh.Message(pamh.PAM_PROMPT_ECHO_OFF,"\nVerify 2FA at https://accounts.yolodyne.biz/pam/verify/%s\nPress enter once verification is complete.\n" % (str(user_status['key']), )))
+    pamh.conversation(pamh.Message(pamh.PAM_PROMPT_ECHO_OFF,"\nVerify 2FA at https://accounts.example.com/pam/verify/%s\nPress enter once verification is complete.\n" % (str(user_status['key']), )))
 
     while True:
       checked = requests.get('https://accounts.example.com/pam/check/%s' % str(user_status['key'])).json()
